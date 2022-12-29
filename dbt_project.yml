@@ -37,6 +37,10 @@ models:
     example:
       materialized: view
       +schema: example
+      +hours_to_expiration: "{{ None if target.name in ['dev','pull_request'] else 1 }}"
+      
+    drop_models:
+      materialized: ephemeral
 
     reporting: #pour toutes modèles dans dossier models/reporting
       Finance:  #pour toutes modèles dans dossier models/reporting/Finance
