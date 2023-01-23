@@ -13,7 +13,7 @@ select
         replace(table_type, 'BASE ', ''),
         concat('`{{target.database}}.{{target.schema}}', '.', concat(table_name, '`'))
     ) as command
-from {{ target.database }}.{{ target.schema }}.information_schema.tables
+from {{ target.database }}.{{ target.schema }}.INFORMATION_SCHEMA.TABLES
 where
     upper(table_name) not in (
         {%- for model in current_models -%}
