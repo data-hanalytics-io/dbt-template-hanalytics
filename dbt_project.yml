@@ -54,3 +54,7 @@ models:
         +schema: Growth
       Approvisionnement:
         +schema: Approvisionnement
+    
+    ML:
+      +config:
+        submission_method: serverless
