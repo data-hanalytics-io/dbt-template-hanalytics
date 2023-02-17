@@ -1,10 +1,30 @@
-Welcome to your new dbt project!
+# DBT project:
 
-### Using the starter project
+    ## Folder Organisation
+        ```
+        models
+            ├──[Data source type] (for ex: Google Analytic) 
+                ├── reporting
+                ├── machine_learning
+                ├── intermediate
+                ├── staging
+                └── source
+        ```
+
+        ```mermaid
+        graph LR
+        A[Raw data] -- Rule --> B[Source models]
+        B[Source models] --> C[Staging models]
+        C[Staging models] --> D[Intermediate models]
+        D[Intermediate models] --> E[Reproting models]
+        D[Intermediate models] --> F[models for ML]
+        ```
 
 Try running the following commands:
+- dbt deps
 - dbt run
 - dbt test
+-- test
 
 
 ### Resources:
