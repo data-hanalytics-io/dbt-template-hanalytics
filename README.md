@@ -28,17 +28,16 @@ E[Core models] -- Step 4.2 --> G[models for ML]
 - **Materialization: view**
 - Models in folder models/[**Data source type**]/source (ex: models/google_analytic/source)
 - One model for one raw table
-- name: src_[**Data source type acronym**]_[**raw table name**]
-ex: src_ga4_event
+- name: src_[**Data source type acronym**]_[**raw table name**] - ex: src_ga4_event
 - rename column to english
 - **NO**:
-- SELECT *
-- where condition
-- window function
-- calculation
+    * SELECT *
+    * where condition
+    * window function
+    * calculation
 - **Requirement**:
-- Recast column
-- Unnest (if having list in raw table)
+    * Recast column
+    * Unnest (if having list in raw table)
 
 ### **Step 2**: Source model --> Staging models
 - **Materialization: table/incremental**
@@ -47,28 +46,25 @@ ex: src_ga4_event
 - name: stg_[**Data source type acronym**]_[**raw table detailed name**]
 ex: stg_ga4_event_login
 - **NO**:
-- CTE (with data as (SELECT ...))
-- Join models
-- WHERE condition
+    * CTE (with data as (SELECT ...))
+    * Join models
+    * WHERE condition
 - **Possible to have**:
-- Window function
-ex: row_number() over (partition by user_id order by updatedat desc) as rn_createdat
-- Case - when - then - end statement
-- Additional boolean logic True/False
-ex: "user_id not null as is_with_user_id"
+    * Window function - ex: row_number() over (partition by user_id order by updatedat desc) as rn_createdat
+    * Case - when - then - end statement
+    * Additional boolean logic True/False - ex: "user_id not null as is_with_user_id"
 
 ### **Step 2.5**: Staging model --> Intermediate models
 - **Materialization: ephemeral**
 - **Only use when neccesary** 
 - Models in folder models/[**Data source type**]/intermediate (ex: models/google_analytic/intermediate)
 - many intermediate models for one source model
-- name: int_[**Data source type acronym**]_[**raw table detailed name**]
-ex: int_ga4_event_login
+- name: int_[**Data source type acronym**]_[**raw table detailed name**] - ex: int_ga4_event_login
 - **Possible to have**:
-- Window function
-- Calculation
-- Aggregation
-- Additional boolean logic True/False
+    * Window function
+    * Calculation
+    * Aggregation
+    * Additional boolean logic True/False
 
 
 ### **Step 3**: Staging model/Intermediate model --> Core models
@@ -80,14 +76,13 @@ Many staging models are used in the case of merging different Data source type (
 - name: int_[**Data source type acronym**]_[**raw table detailed name**]
 ex: int_ga4_event_login
 - **Possible to have**:
-- Window function
-- Additional boolean logic True/False
-ex: "user_id not null as is_with_user_id"
-- Heavy calculation
-- WHERE condition
-- CTE
+    * Window function
+    * Additional boolean logic True/False - ex: "user_id not null as is_with_user_id"
+    * Heavy calculation
+    * WHERE condition
+    * CTE
 - **Requirement**:
-- test dbt
+    * test dbt
 
 ### **Step 4.1**: Core models --> Reporting models
 - **Materialization: table**
@@ -95,15 +90,14 @@ ex: "user_id not null as is_with_user_id"
 - Data source type can be merged in this step
 - many reporting models for one/many core model(s) (n:n)
 - **Possible to have**:
-- Window function
-- Additional boolean logic True/False
-ex: "user_id not null as is_with_user_id"
-- Heavy calculation
-- WHERE condition
-- CTE
-- Renaming column
+    * Window function
+    * Additional boolean logic True/False - ex: "user_id not null as is_with_user_id"
+    * Heavy calculation
+    * WHERE condition
+    * CTE
+    * Renaming column
 - **Requirement**:
-- test dbt
+    * test dbt
 
 ## Commands for daily/hourly job
 - dbt build
