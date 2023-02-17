@@ -1,6 +1,6 @@
 # DBT project:
 
-    ## Folder Organisation
+    # Folder Organisation
         ```
         models
             ├──[Data source type] (for ex: Google Analytic) 
