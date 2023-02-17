@@ -16,13 +16,13 @@ models
 
 ```mermaid
 graph LR
-A[Raw data] -- {Step 1} --> B[Source models]
-B[Source models] -- {Step 2} --> C[Staging models]
-C[Staging models] -- {Step 2.5} --> D[Intermediate models]
-C[Staging models] -- {Step 3} --> E[Core models]
-D[Intermediate models] -- {Step 3} --> E[Core models]
-E[Core models] -- {Step 4.1} --> F[Reproting models]
-E[Core models] -- {Step 4.2} --> G[models for ML]
+A[Raw data] -- Step 1 --> B[Source models]
+B[Source models] -- Step 2 --> C[Staging models]
+C[Staging models] -- Step 2.5 --> D[Intermediate models]
+C[Staging models] -- Step 3 --> E[Core models]
+D[Intermediate models] -- Step 3 --> E[Core models]
+E[Core models] -- Step 4.1 --> F[Reproting models]
+E[Core models] -- Step 4.2 --> G[models for ML]
 ```
 ### Step explaination
 **Step 1**: Raw data --> Source models
