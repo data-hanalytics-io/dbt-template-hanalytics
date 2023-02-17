@@ -18,10 +18,3 @@
     {{ return(results_list) }}
 
 {% endmacro %}
-
-
-{% macro get_event_names(source) %}
-
-    {{ return(get_column_values('event_name', source)) }}
-    -- source = ref('src_GA4_event')
-{% endmacro %}
