@@ -24,8 +24,7 @@ D[Intermediate models] -- Step 3 --> E[Core models]
 E[Core models] -- Step 4.1 --> F[Reproting models]
 E[Core models] -- Step 4.2 --> G[models for ML]
 ```
-### Step explaination
-**Step 1**: Raw data --> Source models
+### **Step 1**: Raw data --> Source models
 - **Materialization: view**
 - Models in folder models/[**Data source type**]/source (ex: models/google_analytic/source)
 - One model for one raw table
@@ -41,7 +40,7 @@ ex: src_ga4_event
 - Recast column
 - Unnest (if having list in raw table)
 
-**Step 2**: Source model --> Staging models
+### **Step 2**: Source model --> Staging models
 - **Materialization: table/incremental**
 - Models in folder models/[**Data source type**]/staging (ex: models/google_analytic/staging)
 - one staging models for one source model
@@ -58,7 +57,7 @@ ex: row_number() over (partition by user_id order by updatedat desc) as rn_creat
 - Additional boolean logic True/False
 ex: "user_id not null as is_with_user_id"
 
-**Step 2.5**: Staging model --> Intermediate models
+### **Step 2.5**: Staging model --> Intermediate models
 - **Materialization: ephemeral**
 - **Only use when neccesary** 
 - Models in folder models/[**Data source type**]/intermediate (ex: models/google_analytic/intermediate)
@@ -72,7 +71,7 @@ ex: int_ga4_event_login
 - Additional boolean logic True/False
 
 
-**Step 3**: Staging model/Intermediate model --> Core models
+### **Step 3**: Staging model/Intermediate model --> Core models
 - **Materialization: table**
 - Models in folder models/[**Data source type**]/core (ex: models/google_analytic/core)
 - Many core models for many staging (and one intermediate model)
@@ -90,7 +89,7 @@ ex: "user_id not null as is_with_user_id"
 - **Requirement**:
 - test dbt
 
-**Step 4.1**: Core models --> Reporting models
+### **Step 4.1**: Core models --> Reporting models
 - **Materialization: table**
 - Models in folder models/[**Data source type**]/report (ex: models/global/report)
 - Data source type can be merged in this step
