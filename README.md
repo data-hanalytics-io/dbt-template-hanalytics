@@ -1,6 +1,6 @@
 # DBT project:
 
-Folder Organisation
+## Folder Organisation
 ```
 models
     ├──[Data source type] (for ex: Google Analytic) 
@@ -11,6 +11,8 @@ models
         └── source
 ```
 
+## Graph data pipeline
+
 ```mermaid
 graph LR
 A[Raw data] -- Rule --> B[Source models]
@@ -20,11 +22,12 @@ D[Intermediate models] --> E[Reproting models]
 D[Intermediate models] --> F[models for ML]
 ```
 
-Try running the following commands:
-- dbt deps
-- dbt run
+## Commands for daily/hourly job
+- dbt build
 - dbt test
--- test
+
+## Commande for CI/CD job
+- dbt build --select state:modified+
 
 
 ### Resources:
