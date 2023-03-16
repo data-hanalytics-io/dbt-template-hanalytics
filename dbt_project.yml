@@ -38,7 +38,7 @@ models:
       materialized: ephemeral
       # materialized: view
       +schema: example
-      +hours_to_expiration: "{{ None if target.name in ['prod'] else 1 if target.name in ['pull_request'] else 72 }}"
+      +hours_to_expiration: "{{ None if target.name in ['Production'] else 1 if target.name in ['pull_request'] else 72 }}"
       
     drop_models:
       # materialized: ephemeral
