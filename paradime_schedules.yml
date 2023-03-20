@@ -1,21 +1,27 @@
 schedules:
-  - name: daily_job
-    schedule: "0 6 * * *"
+  - name: DAILY_JOB
+    schedule: "30 0,12 * * *"
     environment: production
     commands:
       - dbt build
-    owner_email: valorissimo@data-hanalytics.io
-  
-  - name: CI job # the name of your Turbo CI job
+    owner_email: data-service@data-hanalytics.io
+    slack_on:
+      # - passed
+      - failed
+    slack_notify:
+      - "#data-monitoring"
+
+  - name: CI_JOB # the name of your Turbo CI job
     turbo_ci:
       enabled: true # true to enabled this Turbo CI job to run on pull request
-      deferred_manifest_schedule: daily_job #the name of the bolt schedule where the Turbo CI job will look for the most recent successful run manifest.json for state comparison
+      deferred_manifest_schedule: DAILY_JOB #the name of the bolt schedule where the Turbo CI job will look for the most recent successful run manifest.json for state comparison
     schedule: "OFF" # set the schedule configuration to not run on a schedule (to be used for PR only)
     environment: production #the environment used to run the schedule -> this is always production
+    owner_email: data-service@data-hanalytics.io
     commands:
-         - dbt build --select state:modified+ #the dbt command you want to run when the pull request is opened
+      - dbt build --select state:modified+ #the dbt command you want to run when the pull request is opened
     slack_on: # the configuration of when a notification is triggered. Here we want to send a notification when the run is completed either successfully or when failing
-        - passed
-        - failed 
+      - passed
+      - failed
     slack_notify: # the channel/user that will be notified
-        - "#dbt-CI-job"
+      - "#dbt-ci-job"
