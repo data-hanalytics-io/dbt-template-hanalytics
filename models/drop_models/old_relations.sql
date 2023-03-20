@@ -20,3 +20,4 @@ where
         '{{ model.upper() }}' {%- if not loop.last -%}, {% endif %}
         {%- endfor -%}
     )
+    and table_name not like '%tmp%'
