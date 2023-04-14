@@ -32,13 +32,17 @@ clean-targets:         # directories to be removed by `dbt clean`
 # as tables. These settings can be overridden in the individual model files
 # using the `{{ config(...) }}` macro.
 models:
+  elementary:
+    ## elementary models will be created in the schema 'dbt_monitoring_elementary' in production
+    +schema: "dbt_monitoring_elementary"
+
   dbt_template:
     # Applies to all files under models/example/
     example:
       materialized: ephemeral
       # materialized: view
       +schema: example
-      +hours_to_expiration: "{{ None if target.name in ['prod'] else 1 if target.name in ['pull_request'] else 72 }}"
+      #+hours_to_expiration: "{{ None if target.name in ['prod'] else 1 if target.name in ['pull_request'] else 168 }}"
       
     drop_models:
       # materialized: ephemeral
